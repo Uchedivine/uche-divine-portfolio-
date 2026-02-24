@@ -14,11 +14,25 @@ const ProjectsPage = ({ colors, isDark }) => {
 
   const projects = [
     {
+      title: 'Bank Aptitude Test',
+      subtitle: 'Full Stack',
+      desc: 'Created pixel-perfect aptitude test platform with real-time scoring and performance tracking',
+      tags: ['Next.js', 'Laravel', 'MySQL'],
+      link: 'https://bank-aptitude-test-frontend.vercel.app/'
+    },
+    {
       title: 'Crypto Wallet App',
       subtitle: 'Mobile',
       desc: 'Built modern Web3 crypto wallet with real-time price tracking and trend charts',
       tags: ['Flutter', 'Dart', 'API Integration'],
       link: 'https://appetize.io/embed/b_tjsg3n25kl2anr3schm3bc64fa'
+    },
+     {
+      title: 'Chop Chop Delivery',
+      subtitle: 'Mobile',
+      desc: 'Designed and developed a food delivery app with real-time order tracking, dynamic menus, and secure payment integration',
+      tags: ['Flutter', 'Dart', 'API Integration'],
+      link: 'https://appetize.io/embed/b_syr2cowdxmfshowtcna3drvlky'
     },
     {
       title: 'Audiophile E-commerce',
