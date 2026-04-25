@@ -1,36 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const LoadingAnimation = ({ colors }) => {
+const LoadingAnimation = () => {
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    const t = setTimeout(() => setOpacity(0), 1300);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div style={{
       position: 'fixed',
       inset: 0,
-      background: colors.bg,
+      background: '#0a0a0a',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 9999,
-      backdropFilter: 'blur(10px)',
-      animation: 'fadeOut 0.5s ease-out 1s forwards'
+      opacity,
+      transition: 'opacity 0.5s ease',
+      pointerEvents: opacity === 0 ? 'none' : 'all',
     }}>
+      <div style={{
+        fontSize: '28px',
+        fontWeight: '700',
+        background: 'linear-gradient(135deg,#a855f7,#06b6d4)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+        marginBottom: '24px',
+        letterSpacing: '-0.02em',
+      }}>
+        UD
+      </div>
+      <div style={{
+        width: '120px',
+        height: '2px',
+        background: 'rgba(255,255,255,0.08)',
+        borderRadius: '2px',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          height: '100%',
+          background: 'linear-gradient(90deg,#a855f7,#06b6d4)',
+          borderRadius: '2px',
+          animation: 'loadBar 1.4s ease forwards',
+        }} />
+      </div>
       <style>{`
-        @keyframes fadeOut {
-          to { opacity: 0; pointer-events: none; }
-        }
-        @keyframes blur {
-          0% { filter: blur(20px); opacity: 0; }
-          50% { filter: blur(5px); opacity: 0.5; }
-          100% { filter: blur(0); opacity: 1; }
+        @keyframes loadBar {
+          from { width: 0%; }
+          to   { width: 100%; }
         }
       `}</style>
-      <div style={{
-        fontSize: '2rem',
-        fontWeight: '700',
-        color: colors.text,
-        animation: 'blur 1s ease-out'
-      }}>
-        Uchechukwu Divine
-      </div>
     </div>
   );
 };
