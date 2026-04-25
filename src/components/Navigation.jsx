@@ -1,147 +1,131 @@
 import React from 'react';
-import { Home, User, Briefcase, Code } from 'lucide-react';
+import { Home, User, Briefcase, Code, Mail } from 'lucide-react';
 
-const Navigation = ({ currentPage, setCurrentPage, isDark, setIsDark, colors }) => {
-  const navItems = [
-    { id: 'home', icon: Home, label: 'Home' },
-    { id: 'about', icon: User, label: 'About' },
-    { id: 'work', icon: Briefcase, label: 'Work' },
-    { id: 'projects', icon: Code, label: 'Projects' }
-  ];
+const navItems = [
+  { id: 'home', icon: Home, label: 'Home' },
+  { id: 'about', icon: User, label: 'About' },
+  { id: 'work', icon: Briefcase, label: 'Work' },
+  { id: 'projects', icon: Code, label: 'Projects' },
+  { id: 'contact', icon: Mail, label: 'Contact' },
+];
 
+const Navigation = ({ currentPage, setCurrentPage }) => {
   return (
     <>
-      {/* Desktop Navigation */}
+      {/* ── Desktop nav ── */}
       <nav style={{
         position: 'fixed',
-        top: '2rem',
+        top: '1.25rem',
         left: '50%',
         transform: 'translateX(-50%)',
-        background: colors.navBg,
-        border: `1px solid ${colors.border}`,
-        borderRadius: '30px',
-        padding: '0.5rem',
+        background: 'rgba(10,10,10,0.7)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '32px',
+        padding: '5px',
         display: 'flex',
-        gap: '0.5rem',
+        gap: '2px',
         zIndex: 1000,
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-      }}
-      className="desktop-nav">
-        {navItems.map(item => (
-          <button
-            key={item.id}
-            onClick={() => setCurrentPage(item.id)}
-            style={{
-              background: currentPage === item.id ? colors.accent : 'transparent',
-              color: currentPage === item.id ? '#fff' : colors.text,
-              border: 'none',
-              padding: '0.5rem 1.25rem',
-              borderRadius: '20px',
-              cursor: 'pointer',
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              transition: 'all 0.2s',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}
-          >
-            <item.icon size={16} />
-            <span className="nav-label">{item.label}</span>
-          </button>
-        ))}
-        <button
-          onClick={() => setIsDark(!isDark)}
-          style={{
-            background: 'transparent',
-            color: colors.text,
-            border: 'none',
-            padding: '0.5rem 1rem',
-            borderRadius: '20px',
-            cursor: 'pointer',
-            fontSize: '1rem'
-          }}
-        >
-          {isDark ? '☀️' : '🌙'}
-        </button>
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+      }} className="desktop-nav">
+        {navItems.map(item => {
+          const active = currentPage === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => setCurrentPage(item.id)}
+              style={{
+                background: active
+                  ? 'linear-gradient(135deg, #a855f7, #7c3aed)'
+                  : 'transparent',
+                color: active ? '#fff' : 'rgba(255,255,255,0.55)',
+                border: 'none',
+                padding: '7px 18px',
+                borderRadius: '24px',
+                cursor: 'pointer',
+                fontSize: '13px',
+                fontWeight: active ? '600' : '400',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.2s ease',
+                letterSpacing: active ? '0.01em' : '0',
+              }}
+              onMouseEnter={e => {
+                if (!active) e.currentTarget.style.color = '#fff';
+                if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+              }}
+              onMouseLeave={e => {
+                if (!active) e.currentTarget.style.color = 'rgba(255,255,255,0.55)';
+                if (!active) e.currentTarget.style.background = 'transparent';
+              }}
+            >
+              <item.icon size={14} />
+              <span className="nav-label">{item.label}</span>
+            </button>
+          );
+        })}
       </nav>
 
-      {/* Mobile Navigation */}
+      {/* ── Mobile bottom nav ── */}
       <nav style={{
         position: 'fixed',
         bottom: '1rem',
         left: '50%',
         transform: 'translateX(-50%)',
-        background: colors.navBg,
-        border: `1px solid ${colors.border}`,
-        borderRadius: '30px',
-        padding: '0.75rem 1rem',
+        background: 'rgba(10,10,10,0.85)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '32px',
+        padding: '8px 12px',
         display: 'none',
-        gap: '0.5rem',
+        gap: '4px',
         zIndex: 1000,
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        width: 'calc(100% - 2rem)',
-        maxWidth: '400px',
-        justifyContent: 'space-around'
-      }}
-      className="mobile-nav">
-        {navItems.map(item => (
-          <button
-            key={item.id}
-            onClick={() => setCurrentPage(item.id)}
-            style={{
-              background: currentPage === item.id ? colors.accent : 'transparent',
-              color: currentPage === item.id ? '#fff' : colors.text,
-              border: 'none',
-              padding: '0.75rem',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s'
-            }}
-          >
-            <item.icon size={20} />
-          </button>
-        ))}
-        <button
-          onClick={() => setIsDark(!isDark)}
-          style={{
-            background: 'transparent',
-            color: colors.text,
-            border: 'none',
-            padding: '0.75rem',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            fontSize: '1.25rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          {isDark ? '☀️' : '🌙'}
-        </button>
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+        justifyContent: 'space-around',
+      }} className="mobile-nav">
+        {navItems.map(item => {
+          const active = currentPage === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => setCurrentPage(item.id)}
+              style={{
+                background: active ? 'linear-gradient(135deg,#a855f7,#7c3aed)' : 'transparent',
+                color: active ? '#fff' : 'rgba(255,255,255,0.45)',
+                border: 'none',
+                padding: '10px 14px',
+                borderRadius: '20px',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '3px',
+                transition: 'all 0.2s ease',
+                minWidth: '52px',
+              }}
+            >
+              <item.icon size={18} />
+              <span style={{ fontSize: '9px', fontWeight: active ? '600' : '400' }}>
+                {item.label}
+              </span>
+            </button>
+          );
+        })}
       </nav>
 
       <style>{`
         @media (max-width: 768px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .mobile-nav {
-            display: flex !important;
-          }
+          .desktop-nav { display: none !important; }
+          .mobile-nav  { display: flex !important; }
         }
         @media (min-width: 769px) {
-          .nav-label {
-            display: inline;
-          }
+          .nav-label { display: inline; }
         }
         @media (max-width: 768px) {
-          .nav-label {
-            display: none;
-          }
+          .nav-label { display: none; }
         }
       `}</style>
     </>

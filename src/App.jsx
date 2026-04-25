@@ -1,77 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import Navigation from './components/Navigation';
 import LoadingAnimation from './components/LoadingAnimation';
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import WorkPage from './components/WorkPage';
 import ProjectsPage from './components/ProjectsPage';
+import ContactPage from './components/ContactPage';
+
+const pageVariants = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+};
+
+const pageTransition = { duration: 0.3, ease: 'easeOut' };
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
-  const [isDark, setIsDark] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const mainRef = useRef(null);
 
-  // Reset loading animation when navigating to home page
+  // Scroll to top on every page change
   useEffect(() => {
-    if (currentPage === 'home') {
-      setIsLoading(true);
-      const timer = setTimeout(() => setIsLoading(false), 1500);
-      return () => clearTimeout(timer);
-    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [currentPage]);
 
- const theme = {
-  dark: {
-    bg: '#000000',              
-    cardBg: '#0a0a0a',          
-    text: '#ffffff',            
-    textSecondary: '#a0a0a0',   
-    accent: '#c084fc',          // Brighter neon purple
-    accentGlow: '#a855f7',      // For glow effects
-    border: '#1a1a1a',          
-    navBg: '#0a0a0a'            
-  },
-  light: {
-    bg: '#ffffff',
-    cardBg: '#f9fafb',
-    text: '#0a0a0a',
-    textSecondary: '#6b7280',
-    accent: '#a855f7',          
-    accentGlow: '#a855f7',
-    border: '#e5e7eb',
-    navBg: '#ffffff'
-  }
-};
+  // Initial loading screen
+  useEffect(() => {
+    const t = setTimeout(() => setIsLoading(false), 1800);
+    return () => clearTimeout(t);
+  }, []);
 
-  const colors = isDark ? theme.dark : theme.light;
+  const navigate = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: colors.bg,
-      color: colors.text,
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      paddingBottom: '80px',
-      position: 'relative',
-      transition: 'background 0.3s, color 0.3s'
-    }}>
-      {isLoading && currentPage === 'home' && <LoadingAnimation colors={colors} />}
+    <>
+      {/* Ambient background orbs */}
+      <div className="orb orb-purple" aria-hidden="true" />
+      <div className="orb orb-cyan" aria-hidden="true" />
 
-      <Navigation 
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        isDark={isDark}
-        setIsDark={setIsDark}
-        colors={colors}
-      />
+      {isLoading && <LoadingAnimation />}
 
-      <main style={{ paddingTop: '80px' }}>
-        {currentPage === 'home' && <HomePage colors={colors} setCurrentPage={setCurrentPage} />}
-        {currentPage === 'about' && <AboutPage colors={colors} />}
-        {currentPage === 'work' && <WorkPage colors={colors} />}
-        {currentPage === 'projects' && <ProjectsPage colors={colors} isDark={isDark} />}
+      <Navigation currentPage={currentPage} setCurrentPage={navigate} />
+
+      <main ref={mainRef} style={{ paddingTop: 'var(--nav-height)', position: 'relative', zIndex: 1 }}>
+        <AnimatePresence mode="wait">
+          <Motion.div
+            key={currentPage}
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={pageTransition}
+          >
+            {currentPage === 'home' && <HomePage setCurrentPage={navigate} />}
+            {currentPage === 'about' && <AboutPage />}
+            {currentPage === 'work' && <WorkPage />}
+            {currentPage === 'projects' && <ProjectsPage />}
+            {currentPage === 'contact' && <ContactPage />}
+          </Motion.div>
+        </AnimatePresence>
       </main>
-    </div>
+    </>
   );
 };
 

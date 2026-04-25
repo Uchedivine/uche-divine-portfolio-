@@ -1,187 +1,206 @@
 import React from 'react';
-import profileImg from '../assets/images/profile.jpg'; // Change extension if your image is .png or .jpeg
+import profileImg from '../assets/images/profile.jpg';
+import { useReveal } from '../hooks/useReveal';
 
-const AboutPage = ({ colors }) => {
+const skills = [
+  { category: 'Mobile', items: ['Flutter', 'Dart', 'React Native'], variant: 'purple' },
+  { category: 'Frontend', items: ['React', 'Next.js', 'Tailwind', 'HTML/CSS'], variant: 'purple' },
+  { category: 'Backend', items: ['Laravel', 'PHP', 'REST APIs'], variant: 'cyan' },
+  { category: 'Database', items: ['MySQL', 'Convex', 'Hive'], variant: 'cyan' },
+  { category: 'Tools', items: ['Git', 'GitHub', 'VS Code', 'Figma'], variant: 'neutral' },
+  { category: 'Languages', items: ['JavaScript', 'TypeScript', 'Dart', 'PHP'], variant: 'neutral' },
+];
+
+const education = [
+  {
+    school: 'University of Port Harcourt',
+    degree: 'MSc Computer Science',
+    period: '2024 – Present',
+    accent: '#a855f7',
+  },
+  {
+    school: 'Enugu State University of Science & Technology',
+    degree: 'B.Sc. Computer Science',
+    period: 'Sep 2019 – Sep 2023',
+    accent: '#06b6d4',
+  },
+];
+
+const AboutPage = () => {
+  const bioRef = useReveal();
+  const skillsRef = useReveal();
+  const eduRef = useReveal();
+
   return (
-    <div style={{
-      maxWidth: '900px',
-      margin: '0 auto',
-      padding: '4rem 2rem'
-    }}>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '2rem',
-        marginBottom: '3rem',
-        flexWrap: 'wrap'
-      }}>
-        <img 
-          src={profileImg}
-          alt="Profile"
-          style={{
-            width: '120px',
-            height: '120px',
-            borderRadius: '50%',
-            border: `3px solid ${colors.border}`,
-            objectFit: 'cover'
-          }}
-        />
+    <div style={{ maxWidth: '860px', margin: '0 auto', padding: '4rem 2rem 6rem' }}>
+
+      {/* Profile header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
+        <div style={{ position: 'relative' }}>
+          <img
+            src={profileImg}
+            alt="Uchechukwu Divine"
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              border: '2px solid rgba(168,85,247,0.4)',
+              boxShadow: '0 0 24px rgba(168,85,247,0.25)',
+            }}
+          />
+        </div>
         <div>
           <h1 style={{
-            fontSize: '2.5rem',
+            fontSize: 'clamp(1.8rem, 4vw, 2.4rem)',
             fontWeight: '700',
-            color: colors.text,
-            marginBottom: '0.5rem'
+            letterSpacing: '-0.02em',
+            marginBottom: '4px',
           }}>
-            Uchechukwu Divine
+            <span className="gradient-text">Uchechukwu Divine</span>
           </h1>
-          <p style={{
-            fontSize: '1.125rem',
-            color: colors.accent,
-            marginBottom: '1rem'
-          }}>
-            Full-Stack Developer
+          <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+            Full-Stack Developer &nbsp;·&nbsp; MSc Computer Science In-view
           </p>
-         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-  <a 
-    href="https://github.com/Uchedivine" 
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      color: colors.accent,
-      textDecoration: 'none',
-      fontSize: '0.875rem',
-      transition: 'all 0.3s',
-      textShadow: 'none'
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.textShadow = `0 0 10px ${colors.accentGlow}`;
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.textShadow = 'none';
-    }}
-  >
-    GitHub
-  </a>
-  <a 
-    href="mailto:uchedivine65@gmail.com"
-    style={{
-      color: colors.accent,
-      textDecoration: 'none',
-      fontSize: '0.875rem',
-      transition: 'all 0.3s',
-      textShadow: 'none'
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.textShadow = `0 0 10px ${colors.accentGlow}`;
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.textShadow = 'none';
-    }}
-  >
-    Email
-  </a>
-  <span style={{
-    color: colors.textSecondary,
-    fontSize: '0.875rem'
-  }}>+234 913 326 1236</span>
-</div>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            {[
+              { label: 'GitHub', href: 'https://github.com/Uchedivine' },
+              { label: 'Email', href: 'mailto:uchedivine65@gmail.com' },
+            ].map(l => (
+              <a
+                key={l.label}
+                href={l.href}
+                target={l.href.startsWith('http') ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: '13px',
+                  color: 'var(--accent)',
+                  textDecoration: 'none',
+                  transition: 'opacity 0.2s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '0.7'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >
+                {l.label} ↗
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div style={{
-        background: colors.cardBg,
-        border: `1px solid ${colors.border}`,
-        borderRadius: '12px',
-        padding: '2rem',
-        marginBottom: '2rem'
+      {/* Bio */}
+      <div ref={bioRef} className="reveal" style={{
+        background: 'var(--bg-card-purple)',
+        border: '1px solid var(--border-purple)',
+        borderRadius: 'var(--radius-lg)',
+        padding: '1.75rem',
+        marginBottom: '2.5rem',
       }}>
-        <p style={{
-          color: colors.text,
-          lineHeight: '1.8',
-          fontSize: '1rem',
-          marginBottom: '1rem'
-        }}>
-          A highly motivated  developer with hands-on experience building mobile and web applications. 
-          My prefered frameworks include Flutter, Laravel, React, and modern web technologies. 
-          I thrive in problem solving and creating seamless user experiences.
+        <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8', marginBottom: '1rem' }}>
+          A highly motivated full-stack developer with hands-on experience building mobile and web
+          applications. My preferred stack includes Flutter, Laravel, React, and modern web
+          technologies. I thrive in problem-solving and creating seamless user experiences.
         </p>
-        <p style={{
-          color: colors.text,
-          lineHeight: '1.8',
-          fontSize: '1rem'
-        }}>
-          Recently completed the HNG Internship Program with 14 projects across mobile, frontend, and backend tracks, 
-          demonstrating proficiency in full-stack development. I excel at rapidly learning new technologies and 
-          translating concepts into practical, effective solutions.
+        <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8' }}>
+          Recently completed the HNG Internship Program across 14 projects spanning mobile,
+          frontend, and backend tracks. Currently deepening my academic foundations through an MSc
+          in Computer Science, where I enjoy bridging theory with practical engineering.
         </p>
       </div>
 
-      <h2 style={{
-        fontSize: '1.5rem',
-        fontWeight: '600',
-        color: colors.text,
-        marginBottom: '1.5rem'
-      }}>
+      {/* Skills */}
+      <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.25rem', color: '#fff' }}>
         Technical Skills
       </h2>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-        {[
-          { title: 'Mobile', items: 'Flutter, Dart' },
-          { title: 'Frontend', items: 'React, Next.js, HTML/CSS, Tailwind' },
-          { title: 'Backend', items: 'Laravel, PHP, REST APIs' },
-          { title: 'Database', items: 'MySQL, Convex, Hive' }
-        ].map((skill, idx) => (
-          <div key={idx} style={{
-            background: colors.cardBg,
-            border: `1px solid ${colors.border}`,
-            borderRadius: '8px',
-            padding: '1.5rem'
-          }}>
+      <div ref={skillsRef} className="reveal-stagger" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px,1fr))',
+        gap: '12px',
+        marginBottom: '2.5rem',
+      }}>
+        {skills.map(skill => (
+          <div
+            key={skill.category}
+            style={{
+              background: skill.variant === 'purple'
+                ? 'var(--bg-card-purple)'
+                : skill.variant === 'cyan'
+                  ? 'var(--bg-card-cyan)'
+                  : 'rgba(255,255,255,0.03)',
+              border: `1px solid ${skill.variant === 'purple'
+                ? 'var(--border-purple)'
+                : skill.variant === 'cyan'
+                  ? 'var(--border-cyan)'
+                  : 'rgba(255,255,255,0.07)'}`,
+              borderRadius: 'var(--radius-md)',
+              padding: '1.25rem',
+            }}
+          >
             <h3 style={{
-              color: colors.text,
-              fontSize: '1rem',
+              fontSize: '12px',
               fontWeight: '600',
-              marginBottom: '0.5rem'
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: skill.variant === 'purple'
+                ? 'var(--accent)'
+                : skill.variant === 'cyan'
+                  ? 'var(--accent-cyan)'
+                  : 'var(--text-secondary)',
+              marginBottom: '10px',
             }}>
-              {skill.title}
+              {skill.category}
             </h3>
-            <p style={{
-              color: colors.textSecondary,
-              fontSize: '0.875rem'
-            }}>
-              {skill.items}
-            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              {skill.items.map(item => (
+                <span key={item} className={`tag tag-${skill.variant === 'neutral' ? 'neutral' : skill.variant}`}>
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
         ))}
       </div>
 
-      <div style={{ marginTop: '3rem' }}>
-        <h2 style={{
-          fontSize: '1.5rem',
-          fontWeight: '600',
-          color: colors.text,
-          marginBottom: '1.5rem'
-        }}>
-          Education
-        </h2>
-        <div style={{
-          background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: '8px',
-          padding: '1.5rem'
-        }}>
-          <h3 style={{ color: colors.text, fontWeight: '600', marginBottom: '0.25rem' }}>
-            Enugu State University of Science & Technology
-          </h3>
-          <p style={{ color: colors.accent, fontSize: '0.875rem', marginBottom: '0.5rem' }}>
-            B.Sc. Computer Science
-          </p>
-          <p style={{ color: colors.textSecondary, fontSize: '0.875rem' }}>
-            Sep 2019 - Sep 2023
-          </p>
-        </div>
+      {/* Education */}
+      <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.25rem', color: '#fff' }}>
+        Education
+      </h2>
+      <div ref={eduRef} className="reveal-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {education.map(edu => (
+          <div
+            key={edu.school}
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderLeft: `3px solid ${edu.accent}`,
+              borderRadius: '0 var(--radius-md) var(--radius-md) 0',
+              padding: '1.25rem 1.5rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '8px',
+            }}
+          >
+            <div>
+              <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#fff', marginBottom: '4px' }}>
+                {edu.school}
+              </h3>
+              <p style={{ fontSize: '13px', color: edu.accent }}>{edu.degree}</p>
+            </div>
+            <span style={{
+              fontSize: '12px',
+              color: 'var(--text-tertiary)',
+              background: 'rgba(255,255,255,0.04)',
+              padding: '4px 10px',
+              borderRadius: '20px',
+              border: '1px solid rgba(255,255,255,0.07)',
+              whiteSpace: 'nowrap',
+            }}>
+              {edu.period}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
