@@ -83,45 +83,26 @@ const ContactPage = () => {
     },
   ];
 
-  const inputStyle = {
-    width: '100%',
-    padding: '12px 14px',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: 'var(--radius-md)',
-    color: '#fff',
-    fontSize: '14px',
-    outline: 'none',
-    transition: 'border-color 0.2s',
-    fontFamily: 'inherit',
-  };
-
   const cardBg = {
-    purple: { bg: 'var(--bg-card-purple)', border: 'var(--border-purple)' },
-    cyan: { bg: 'var(--bg-card-cyan)', border: 'var(--border-cyan)' },
-    green: { bg: 'rgba(34,197,94,0.06)', border: 'rgba(34,197,94,0.2)' },
+    purple: { bg: 'bg-bg-card-purple', border: 'border-border-purple' },
+    cyan: { bg: 'bg-bg-card-cyan', border: 'border-border-cyan' },
+    green: { bg: 'bg-[rgba(34,197,94,0.06)]', border: 'border-[rgba(34,197,94,0.2)]' },
   };
 
   return (
-    <div style={{ maxWidth: '720px', margin: '0 auto', padding: '4rem 2rem 6rem' }}>
+    <div className="max-w-[720px] mx-auto px-8 pt-16 pb-24">
 
-      <h1 style={{
-        fontSize: 'clamp(1.8rem,4vw,2.4rem)',
-        fontWeight: '700',
-        letterSpacing: '-0.02em',
-        marginBottom: '0.5rem',
-      }}>
+      <h1 className="text-[clamp(1.8rem,4vw,2.4rem)] font-bold tracking-[-0.02em] mb-2">
         <span className="gradient-text">Get in Touch</span>
       </h1>
-      <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '3rem' }}>
+      <p className="text-text-secondary text-sm mb-12">
         Have a project in mind or want to work together? I'd love to hear from you.
       </p>
 
       {/* Contact link cards */}
       <div
         ref={linksRef}
-        className="reveal-stagger"
-        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px,1fr))', gap: '12px', marginBottom: '2.5rem' }}
+        className="reveal-stagger grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3 mb-10"
       >
         {links.map(link => {
           const style = cardBg[link.variant];
@@ -131,33 +112,28 @@ const ContactPage = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
+              className={`
+                flex flex-col gap-2.5 p-5 ${style.bg} border ${style.border} rounded-md
+                no-underline transition-all duration-200
+                hover:translate-y-[-3px]
+              `}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                padding: '1.25rem',
-                background: style.bg,
-                border: `1px solid ${style.border}`,
-                borderRadius: 'var(--radius-md)',
-                textDecoration: 'none',
-                transition: 'transform 0.2s, box-shadow 0.2s',
                 color: link.accent,
+                boxShadow: '0 0 0 rgba(0,0,0,0)',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-3px)';
                 e.currentTarget.style.boxShadow = `0 8px 24px ${link.accent}25`;
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.boxShadow = '0 0 0 rgba(0,0,0,0)';
               }}
             >
               <span style={{ color: link.accent }}>{link.icon}</span>
               <div>
-                <p style={{ fontSize: '11px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.08em', color: link.accent, marginBottom: '4px' }}>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-1" style={{ color: link.accent }}>
                   {link.label}
                 </p>
-                <p style={{ fontSize: '12px', color: 'var(--text-secondary)', wordBreak: 'break-all', lineHeight: '1.4' }}>
+                <p className="text-xs text-text-secondary break-all leading-[1.4]">
                   {link.value}
                 </p>
               </div>
@@ -169,70 +145,64 @@ const ContactPage = () => {
       {/* Form */}
       <div
         ref={formRef}
-        className="reveal"
-        style={{
-          background: 'var(--bg-card-purple)',
-          border: '1px solid var(--border-purple)',
-          borderRadius: 'var(--radius-lg)',
-          padding: '2rem',
-        }}
+        className="reveal bg-bg-card-purple border border-border-purple rounded-lg p-8"
       >
         {status === 'sent' ? (
-          <div style={{ textAlign: 'center', padding: '2.5rem 0' }}>
-            <div style={{
-              width: '52px', height: '52px', borderRadius: '50%',
-              background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.25)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              margin: '0 auto 16px', fontSize: '22px',
-            }}>✓</div>
-            <p style={{ fontSize: '16px', fontWeight: '600', color: '#fff', marginBottom: '6px' }}>Message received!</p>
-            <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>Thanks for reaching out — I'll get back to you shortly.</p>
+          <div className="text-center py-10">
+            <div className="w-[52px] h-[52px] rounded-full bg-[rgba(34,197,94,0.12)] border border-[rgba(34,197,94,0.25)] flex items-center justify-center mx-auto mb-4 text-[22px]">
+              ✓
+            </div>
+            <p className="text-base font-semibold text-white mb-1.5">Message received!</p>
+            <p className="text-[13px] text-text-secondary">Thanks for reaching out — I'll get back to you shortly.</p>
             <button
               onClick={() => setStatus('idle')}
-              style={{
-                marginTop: '20px', padding: '8px 20px',
-                background: 'rgba(168,85,247,0.15)', border: '1px solid rgba(168,85,247,0.3)',
-                borderRadius: '20px', color: '#c084fc', fontSize: '13px', cursor: 'pointer',
-              }}
+              className="mt-5 px-5 py-2 bg-[rgba(168,85,247,0.15)] border border-[rgba(168,85,247,0.3)] rounded-[20px] text-purple-300 text-[13px] cursor-pointer"
             >
               Send another
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <label style={{ fontSize: '12px', color: 'var(--text-tertiary)', display: 'block', marginBottom: '6px', fontWeight: '500' }}>Name</label>
+                <label className="text-xs text-text-tertiary block mb-1.5 font-medium">Name</label>
                 <input
-                  name="name" value={form.name} onChange={handleChange}
-                  required placeholder="John Doe" style={inputStyle}
-                  onFocus={e => e.target.style.borderColor = 'rgba(168,85,247,0.5)'}
-                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="John Doe"
+                  className="w-full px-3.5 py-3 bg-white/[0.04] border border-white/10 rounded-md text-white text-sm outline-none transition-colors duration-200 font-sans focus:border-[rgba(168,85,247,0.5)]"
                 />
               </div>
               <div>
-                <label style={{ fontSize: '12px', color: 'var(--text-tertiary)', display: 'block', marginBottom: '6px', fontWeight: '500' }}>Email</label>
+                <label className="text-xs text-text-tertiary block mb-1.5 font-medium">Email</label>
                 <input
-                  name="email" type="email" value={form.email} onChange={handleChange}
-                  required placeholder="you@example.com" style={inputStyle}
-                  onFocus={e => e.target.style.borderColor = 'rgba(168,85,247,0.5)'}
-                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="you@example.com"
+                  className="w-full px-3.5 py-3 bg-white/[0.04] border border-white/10 rounded-md text-white text-sm outline-none transition-colors duration-200 font-sans focus:border-[rgba(168,85,247,0.5)]"
                 />
               </div>
             </div>
             <div>
-              <label style={{ fontSize: '12px', color: 'var(--text-tertiary)', display: 'block', marginBottom: '6px', fontWeight: '500' }}>Message</label>
+              <label className="text-xs text-text-tertiary block mb-1.5 font-medium">Message</label>
               <textarea
-                name="message" value={form.message} onChange={handleChange}
-                required rows={5} placeholder="Tell me about your project..."
-                style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.6' }}
-                onFocus={e => e.target.style.borderColor = 'rgba(168,85,247,0.5)'}
-                onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                required
+                rows={5}
+                placeholder="Tell me about your project..."
+                className="w-full px-3.5 py-3 bg-white/[0.04] border border-white/10 rounded-md text-white text-sm outline-none transition-colors duration-200 font-sans resize-y leading-[1.6] focus:border-[rgba(168,85,247,0.5)]"
               />
             </div>
 
             {status === 'error' && (
-              <p style={{ fontSize: '13px', color: '#f87171', background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.2)', padding: '10px 14px', borderRadius: '8px' }}>
+              <p className="text-[13px] text-[#f87171] bg-[rgba(248,113,113,0.08)] border border-[rgba(248,113,113,0.2)] px-3.5 py-2.5 rounded-lg">
                 Something went wrong. Try emailing me directly at uchedivine65@gmail.com
               </p>
             )}
@@ -240,18 +210,14 @@ const ContactPage = () => {
             <button
               type="submit"
               disabled={status === 'sending'}
-              style={{
-                padding: '12px 28px',
-                background: status === 'sending' ? 'rgba(168,85,247,0.4)' : 'linear-gradient(135deg,#a855f7,#7c3aed)',
-                border: 'none', borderRadius: '28px', color: '#fff',
-                fontSize: '14px', fontWeight: '600',
-                cursor: status === 'sending' ? 'not-allowed' : 'pointer',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                alignSelf: 'flex-start',
-                boxShadow: '0 4px 20px rgba(168,85,247,0.3)',
-              }}
-              onMouseEnter={e => { if (status !== 'sending') { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 28px rgba(168,85,247,0.5)'; } }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(168,85,247,0.3)'; }}
+              className={`
+                px-7 py-3 border-none rounded-[28px] text-white text-sm font-semibold
+                transition-all duration-200 self-start shadow-[0_4px_20px_rgba(168,85,247,0.3)]
+                ${status === 'sending'
+                  ? 'bg-[rgba(168,85,247,0.4)] cursor-not-allowed'
+                  : 'bg-gradient-to-br from-accent to-purple-700 cursor-pointer hover:translate-y-[-2px] hover:shadow-[0_8px_28px_rgba(168,85,247,0.5)]'
+                }
+              `}
             >
               {status === 'sending' ? 'Sending...' : 'Send Message →'}
             </button>
@@ -259,9 +225,9 @@ const ContactPage = () => {
         )}
       </div>
 
-      <p style={{ fontSize: '12px', color: 'var(--text-tertiary)', marginTop: '1rem', textAlign: 'center' }}>
+      <p className="text-xs text-text-tertiary mt-4 text-center">
         Or jump straight to WhatsApp —{' '}
-        <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" style={{ color: '#22c55e', textDecoration: 'none' }}>
+        <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-green no-underline">
           open chat ↗
         </a>
       </p>

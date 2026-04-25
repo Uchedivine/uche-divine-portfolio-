@@ -44,73 +44,55 @@ const WorkPage = () => {
   const listRef = useReveal();
 
   return (
-    <div style={{ maxWidth: '860px', margin: '0 auto', padding: '4rem 2rem 6rem' }}>
-      <h1 style={{
-        fontSize: 'clamp(1.8rem,4vw,2.4rem)',
-        fontWeight: '700',
-        letterSpacing: '-0.02em',
-        marginBottom: '0.5rem',
-      }}>
+    <div className="max-w-[860px] mx-auto px-8 pt-16 pb-24">
+      <h1 className="text-[clamp(1.8rem,4vw,2.4rem)] font-bold tracking-[-0.02em] mb-2">
         <span className="gradient-text">Work Experience</span>
       </h1>
-      <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '3rem' }}>
+      <p className="text-text-secondary text-sm mb-12">
         Where I've been and what I built there.
       </p>
 
-      <div ref={listRef} className="reveal-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div ref={listRef} className="reveal-stagger flex flex-col gap-4">
         {jobs.map((job, idx) => (
           <div
             key={idx}
+            className={`
+              ${job.accent === '#a855f7' ? 'bg-bg-card-purple border-border-purple' : 'bg-bg-card-cyan border-border-cyan'}
+              border rounded-lg p-7 transition-all duration-200
+              hover:translate-y-[-3px]
+            `}
             style={{
-              background: job.accent === '#a855f7' ? 'var(--bg-card-purple)' : 'var(--bg-card-cyan)',
-              border: `1px solid ${job.accent === '#a855f7' ? 'var(--border-purple)' : 'var(--border-cyan)'}`,
-              borderRadius: 'var(--radius-lg)',
-              padding: '1.75rem',
-              transition: 'transform 0.2s, box-shadow 0.2s',
+              boxShadow: '0 0 0 rgba(0,0,0,0)',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-3px)';
               e.currentTarget.style.boxShadow = `0 12px 32px ${job.accent}22`;
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.boxShadow = '0 0 0 rgba(0,0,0,0)';
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '10px' }}>
+            <div className="flex justify-between items-start mb-4 flex-wrap gap-2.5">
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                  <h2 style={{ fontSize: '18px', fontWeight: '600', color: '#fff' }}>{job.company}</h2>
+                <div className="flex items-center gap-2.5 mb-1">
+                  <h2 className="text-lg font-semibold text-white">{job.company}</h2>
                   {job.tag && (
-                    <span style={{
-                      fontSize: '11px',
-                      padding: '2px 8px',
-                      background: 'rgba(34,197,94,0.12)',
-                      border: '1px solid rgba(34,197,94,0.25)',
-                      borderRadius: '10px',
-                      color: '#22c55e',
-                      fontWeight: '500',
-                    }}>{job.tag}</span>
+                    <span className="text-[11px] px-2 py-0.5 bg-[rgba(34,197,94,0.12)] border border-[rgba(34,197,94,0.25)] rounded-[10px] text-green font-medium">
+                      {job.tag}
+                    </span>
                   )}
                 </div>
-                <p style={{ fontSize: '13px', color: job.accent }}>{job.role}</p>
+                <p className="text-[13px]" style={{ color: job.accent }}>{job.role}</p>
               </div>
-              <span style={{
-                fontSize: '12px',
-                color: 'var(--text-tertiary)',
-                background: 'rgba(255,255,255,0.04)',
-                padding: '4px 10px',
-                borderRadius: '20px',
-                border: '1px solid rgba(255,255,255,0.07)',
-                whiteSpace: 'nowrap',
-              }}>{job.period}</span>
+              <span className="text-xs text-text-tertiary bg-white/[0.04] px-2.5 py-1 rounded-[20px] border border-white/[0.07] whitespace-nowrap">
+                {job.period}
+              </span>
             </div>
 
-            <ul style={{ paddingLeft: '0', margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <ul className="pl-0 m-0 list-none flex flex-col gap-2">
               {job.duties.map((duty, i) => (
-                <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                  <span style={{ color: job.accent, marginTop: '2px', flexShrink: 0, fontSize: '14px' }}>▸</span>
-                  <span style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.65' }}>{duty}</span>
+                <li key={i} className="flex gap-2.5 items-start">
+                  <span className="mt-0.5 flex-shrink-0 text-sm" style={{ color: job.accent }}>▸</span>
+                  <span className="text-sm text-text-secondary leading-[1.65]">{duty}</span>
                 </li>
               ))}
             </ul>

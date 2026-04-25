@@ -21,112 +21,41 @@ const HomePage = ({ setCurrentPage }) => {
   }, []);
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '2rem',
-      position: 'relative',
-    }}>
-      <div ref={heroRef} style={{ textAlign: 'center', maxWidth: '680px', width: '100%' }}>
+    <div className="min-h-screen flex items-center justify-center p-8 relative">
+      <div ref={heroRef} className="text-center max-w-[680px] w-full">
 
         {/* Availability badge */}
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '6px 14px',
-          background: 'rgba(34,197,94,0.08)',
-          border: '1px solid rgba(34,197,94,0.2)',
-          borderRadius: '20px',
-          marginBottom: '2rem',
-        }}>
-          <span style={{
-            width: '7px', height: '7px',
-            background: '#22c55e',
-            borderRadius: '50%',
-          }} className="pulse-dot" />
-          <span style={{ fontSize: '12px', color: '#22c55e', fontWeight: '500' }}>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[rgba(34,197,94,0.08)] border border-[rgba(34,197,94,0.2)] rounded-[20px] mb-8">
+          <span className="w-[7px] h-[7px] bg-green rounded-full pulse-dot" />
+          <span className="text-xs text-green font-medium">
             Available for work
           </span>
         </div>
 
         {/* Headline */}
-        <h1 style={{
-          fontSize: 'clamp(2.4rem, 6vw, 3.8rem)',
-          fontWeight: '700',
-          lineHeight: '1.1',
-          marginBottom: '1.25rem',
-          letterSpacing: '-0.03em',
-        }}>
+        <h1 className="text-[clamp(2.4rem,6vw,3.8rem)] font-bold leading-[1.1] mb-5 tracking-[-0.03em]">
           <span className="gradient-text-animated">I build things</span>
           <br />
-          <span style={{ color: '#ffffff' }}>people actually use.</span>
+          <span className="text-white">people actually use.</span>
         </h1>
 
         {/* Subtitle */}
-        <p style={{
-          fontSize: 'clamp(1rem, 2.5vw, 1.15rem)',
-          color: 'var(--text-secondary)',
-          lineHeight: '1.7',
-          marginBottom: '2.25rem',
-          maxWidth: '480px',
-          margin: '0 auto 2.25rem',
-        }}>
+        <p className="text-[clamp(1rem,2.5vw,1.15rem)] text-text-secondary leading-[1.7] mb-9 max-w-[480px] mx-auto">
           Full-stack developer specializing in Flutter, React &amp; Laravel.
           Currently pursuing an MSc in Computer Science.
         </p>
 
         {/* CTAs */}
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '3rem' }}>
+        <div className="flex gap-3 justify-center flex-wrap mb-12">
           <button
             onClick={() => setCurrentPage('projects')}
-            style={{
-              padding: '11px 26px',
-              background: 'linear-gradient(135deg,#a855f7,#7c3aed)',
-              border: 'none',
-              borderRadius: '28px',
-              color: '#fff',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'transform 0.2s, box-shadow 0.2s',
-              boxShadow: '0 4px 20px rgba(168,85,247,0.35)',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 28px rgba(168,85,247,0.5)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(168,85,247,0.35)';
-            }}
+            className="px-[26px] py-[11px] bg-gradient-to-br from-accent to-purple-700 border-none rounded-[28px] text-white text-sm font-semibold cursor-pointer transition-all duration-200 shadow-[0_4px_20px_rgba(168,85,247,0.35)] hover:translate-y-[-2px] hover:shadow-[0_8px_28px_rgba(168,85,247,0.5)]"
           >
             View Projects
           </button>
           <button
             onClick={() => setCurrentPage('contact')}
-            style={{
-              padding: '11px 26px',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              borderRadius: '28px',
-              color: '#e0e0e0',
-              fontSize: '14px',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-              backdropFilter: 'blur(8px)',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-            }}
+            className="px-[26px] py-[11px] bg-white/5 border border-white/[0.12] rounded-[28px] text-[#e0e0e0] text-sm font-medium cursor-pointer transition-all duration-200 backdrop-blur-xs hover:bg-white/10 hover:border-white/[0.22]"
           >
             Get in Touch
           </button>
@@ -135,40 +64,21 @@ const HomePage = ({ setCurrentPage }) => {
         {/* Profile chip */}
         <button
           onClick={() => setCurrentPage('about')}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '8px 18px 8px 8px',
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: '32px',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            backdropFilter: 'blur(8px)',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.background = 'rgba(168,85,247,0.1)';
-            e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-          }}
+          className="inline-flex items-center gap-2.5 px-[18px] py-2 pl-2 bg-white/[0.04] border border-white/10 rounded-[32px] cursor-pointer transition-all duration-200 backdrop-blur-xs hover:bg-[rgba(168,85,247,0.1)] hover:border-[rgba(168,85,247,0.3)]"
         >
           <img
             src={profileImg}
             alt="Uchechukwu Divine"
-            style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
+            className="w-8 h-8 rounded-full object-cover"
           />
-          <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', fontWeight: '400' }}>
+          <span className="text-[13px] text-white/70 font-normal">
             About — Uchechukwu Divine
           </span>
-          <span style={{ fontSize: '13px', color: 'var(--accent)' }}>→</span>
+          <span className="text-[13px] text-accent">→</span>
         </button>
 
         {/* Social links */}
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '2rem' }}>
+        <div className="flex gap-4 justify-center mt-8">
           {[
             { label: 'GitHub', href: 'https://github.com/Uchedivine' },
             { label: 'Email', href: 'mailto:uchedivine65@gmail.com' },
@@ -179,14 +89,7 @@ const HomePage = ({ setCurrentPage }) => {
               href={link.href}
               target={link.href.startsWith('http') ? '_blank' : undefined}
               rel="noopener noreferrer"
-              style={{
-                fontSize: '13px',
-                color: 'var(--text-tertiary)',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-tertiary)'}
+              className="text-[13px] text-text-tertiary no-underline transition-colors duration-200 hover:text-accent"
             >
               {link.label}
             </a>

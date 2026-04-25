@@ -21,9 +21,9 @@ const projects = [
 const filters = ['All', 'Mobile', 'Frontend', 'Backend', 'Full Stack'];
 
 const typeAccent = (type) => {
-  if (type === 'Mobile') return { bg: 'var(--bg-card-cyan)', border: 'var(--border-cyan)', color: '#22d3ee', tagClass: 'tag-cyan' };
-  if (type === 'Backend') return { bg: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)', color: 'var(--text-secondary)', tagClass: 'tag-neutral' };
-  return { bg: 'var(--bg-card-purple)', border: 'var(--border-purple)', color: '#c084fc', tagClass: 'tag-purple' };
+  if (type === 'Mobile') return { bg: 'bg-bg-card-cyan', border: 'border-border-cyan', color: 'text-cyan-300', tagClass: 'tag-cyan' };
+  if (type === 'Backend') return { bg: 'bg-white/[0.03]', border: 'border-white/[0.07]', color: 'text-text-secondary', tagClass: 'tag-neutral' };
+  return { bg: 'bg-bg-card-purple', border: 'border-border-purple', color: 'text-purple-300', tagClass: 'tag-purple' };
 };
 
 const ProjectsPage = () => {
@@ -33,36 +33,27 @@ const ProjectsPage = () => {
   const filtered = active === 'All' ? projects : projects.filter(p => p.type === active);
 
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '4rem 2rem 6rem' }}>
-      <h1 style={{
-        fontSize: 'clamp(1.8rem,4vw,2.4rem)',
-        fontWeight: '700',
-        letterSpacing: '-0.02em',
-        marginBottom: '0.5rem',
-      }}>
+    <div className="max-w-[1100px] mx-auto px-8 pt-16 pb-24">
+      <h1 className="text-[clamp(1.8rem,4vw,2.4rem)] font-bold tracking-[-0.02em] mb-2">
         <span className="gradient-text">Projects</span>
       </h1>
-      <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '2rem' }}>
+      <p className="text-text-secondary text-sm mb-8">
         {projects.length} projects across mobile, frontend, and backend.
       </p>
 
       {/* Filter pills */}
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+      <div className="flex gap-2 flex-wrap mb-10">
         {filters.map(f => (
           <button
             key={f}
             onClick={() => setActive(f)}
-            style={{
-              padding: '6px 16px',
-              borderRadius: '20px',
-              border: active === f ? '1px solid rgba(168,85,247,0.5)' : '1px solid rgba(255,255,255,0.08)',
-              background: active === f ? 'rgba(168,85,247,0.15)' : 'rgba(255,255,255,0.03)',
-              color: active === f ? '#c084fc' : 'var(--text-secondary)',
-              fontSize: '13px',
-              fontWeight: active === f ? '600' : '400',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
+            className={`
+              px-4 py-1.5 rounded-[20px] text-[13px] cursor-pointer transition-all duration-200
+              ${active === f
+                ? 'border border-[rgba(168,85,247,0.5)] bg-[rgba(168,85,247,0.15)] text-purple-300 font-semibold'
+                : 'border border-white/[0.08] bg-white/[0.03] text-text-secondary font-normal'
+              }
+            `}
           >
             {f}
           </button>
@@ -72,70 +63,43 @@ const ProjectsPage = () => {
       {/* Grid */}
       <div
         ref={gridRef}
-        className="reveal-stagger"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(290px,1fr))',
-          gap: '16px',
-        }}
+        className="reveal-stagger grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-4"
       >
         {filtered.map((project, idx) => {
           const a = typeAccent(project.type);
           return (
             <div
               key={idx}
-              style={{
-                background: a.bg,
-                border: `1px solid ${a.border}`,
-                borderRadius: 'var(--radius-lg)',
-                padding: '1.5rem',
-                display: 'flex',
-                flexDirection: 'column',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                cursor: 'default',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = `0 16px 40px rgba(0,0,0,0.3)`;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
+              className={`
+                ${a.bg} border ${a.border} rounded-lg p-6 flex flex-col
+                transition-all duration-200 cursor-default
+                hover:translate-y-[-4px] hover:shadow-[0_16px_40px_rgba(0,0,0,0.3)]
+              `}
             >
               {/* Card header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <div className="flex justify-between items-start mb-2.5">
                 <span className={`tag ${a.tagClass}`}>{project.type}</span>
                 {project.link && (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      color: a.color,
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '4px',
-                      borderRadius: '6px',
-                      transition: 'background 0.2s',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                    className={`${a.color} flex items-center p-1 rounded-md transition-colors duration-200 hover:bg-white/[0.08]`}
                   >
                     <ExternalLink size={15} />
                   </a>
                 )}
               </div>
 
-              <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#fff', marginBottom: '8px' }}>
+              <h3 className="text-[15px] font-semibold text-white mb-2">
                 {project.title}
               </h3>
-              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.65', flex: 1, marginBottom: '16px' }}>
+              <p className="text-[13px] text-text-secondary leading-[1.65] flex-1 mb-4">
                 {project.desc}
               </p>
 
               {/* Tech tags */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+              <div className="flex flex-wrap gap-[5px]">
                 {project.tags.map(tag => (
                   <span key={tag} className="tag tag-neutral">{tag}</span>
                 ))}

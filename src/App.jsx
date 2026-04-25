@@ -46,7 +46,7 @@ const App = () => {
 
       <Navigation currentPage={currentPage} setCurrentPage={navigate} />
 
-      <main ref={mainRef} style={{ paddingTop: 'var(--nav-height)', position: 'relative', zIndex: 1 }}>
+      <main ref={mainRef} className="pt-nav relative z-[1]">
         <AnimatePresence mode="wait">
           <Motion.div
             key={currentPage}

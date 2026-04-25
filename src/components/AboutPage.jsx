@@ -32,37 +32,25 @@ const AboutPage = () => {
   const eduRef = useReveal();
 
   return (
-    <div style={{ maxWidth: '860px', margin: '0 auto', padding: '4rem 2rem 6rem' }}>
+    <div className="max-w-[860px] mx-auto px-8 pt-16 pb-24">
 
       {/* Profile header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
-        <div style={{ position: 'relative' }}>
+      <div className="flex items-center gap-8 mb-12 flex-wrap">
+        <div className="relative">
           <img
             src={profileImg}
             alt="Uchechukwu Divine"
-            style={{
-              width: '100px',
-              height: '100px',
-              borderRadius: '50%',
-              objectFit: 'cover',
-              border: '2px solid rgba(168,85,247,0.4)',
-              boxShadow: '0 0 24px rgba(168,85,247,0.25)',
-            }}
+            className="w-[100px] h-[100px] rounded-full object-cover border-2 border-[rgba(168,85,247,0.4)] shadow-[0_0_24px_rgba(168,85,247,0.25)]"
           />
         </div>
         <div>
-          <h1 style={{
-            fontSize: 'clamp(1.8rem, 4vw, 2.4rem)',
-            fontWeight: '700',
-            letterSpacing: '-0.02em',
-            marginBottom: '4px',
-          }}>
+          <h1 className="text-[clamp(1.8rem,4vw,2.4rem)] font-bold tracking-[-0.02em] mb-1">
             <span className="gradient-text">Uchechukwu Divine</span>
           </h1>
-          <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+          <p className="text-[15px] text-text-secondary mb-3">
             Full-Stack Developer &nbsp;·&nbsp; MSc Computer Science In-view
           </p>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div className="flex gap-3 flex-wrap">
             {[
               { label: 'GitHub', href: 'https://github.com/Uchedivine' },
               { label: 'Email', href: 'mailto:uchedivine65@gmail.com' },
@@ -72,14 +60,7 @@ const AboutPage = () => {
                 href={l.href}
                 target={l.href.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                style={{
-                  fontSize: '13px',
-                  color: 'var(--accent)',
-                  textDecoration: 'none',
-                  transition: 'opacity 0.2s',
-                }}
-                onMouseEnter={e => e.currentTarget.style.opacity = '0.7'}
-                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                className="text-[13px] text-accent no-underline transition-opacity duration-200 hover:opacity-70"
               >
                 {l.label} ↗
               </a>
@@ -89,19 +70,13 @@ const AboutPage = () => {
       </div>
 
       {/* Bio */}
-      <div ref={bioRef} className="reveal" style={{
-        background: 'var(--bg-card-purple)',
-        border: '1px solid var(--border-purple)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '1.75rem',
-        marginBottom: '2.5rem',
-      }}>
-        <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8', marginBottom: '1rem' }}>
+      <div ref={bioRef} className="reveal bg-bg-card-purple border border-border-purple rounded-lg p-7 mb-10">
+        <p className="text-text-secondary leading-[1.8] mb-4">
           A highly motivated full-stack developer with hands-on experience building mobile and web
           applications. My preferred stack includes Flutter, Laravel, React, and modern web
           technologies. I thrive in problem-solving and creating seamless user experiences.
         </p>
-        <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8' }}>
+        <p className="text-text-secondary leading-[1.8]">
           Recently completed the HNG Internship Program across 14 projects spanning mobile,
           frontend, and backend tracks. Currently deepening my academic foundations through an MSc
           in Computer Science, where I enjoy bridging theory with practical engineering.
@@ -109,48 +84,29 @@ const AboutPage = () => {
       </div>
 
       {/* Skills */}
-      <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.25rem', color: '#fff' }}>
+      <h2 className="text-xl font-semibold mb-5 text-white">
         Technical Skills
       </h2>
-      <div ref={skillsRef} className="reveal-stagger" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px,1fr))',
-        gap: '12px',
-        marginBottom: '2.5rem',
-      }}>
+      <div ref={skillsRef} className="reveal-stagger grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 mb-10">
         {skills.map(skill => (
           <div
             key={skill.category}
-            style={{
-              background: skill.variant === 'purple'
-                ? 'var(--bg-card-purple)'
-                : skill.variant === 'cyan'
-                  ? 'var(--bg-card-cyan)'
-                  : 'rgba(255,255,255,0.03)',
-              border: `1px solid ${skill.variant === 'purple'
-                ? 'var(--border-purple)'
-                : skill.variant === 'cyan'
-                  ? 'var(--border-cyan)'
-                  : 'rgba(255,255,255,0.07)'}`,
-              borderRadius: 'var(--radius-md)',
-              padding: '1.25rem',
-            }}
+            className={`
+              ${skill.variant === 'purple' ? 'bg-bg-card-purple border-border-purple' : ''}
+              ${skill.variant === 'cyan' ? 'bg-bg-card-cyan border-border-cyan' : ''}
+              ${skill.variant === 'neutral' ? 'bg-white/[0.03] border-white/[0.07]' : ''}
+              border rounded-md p-5
+            `}
           >
-            <h3 style={{
-              fontSize: '12px',
-              fontWeight: '600',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: skill.variant === 'purple'
-                ? 'var(--accent)'
-                : skill.variant === 'cyan'
-                  ? 'var(--accent-cyan)'
-                  : 'var(--text-secondary)',
-              marginBottom: '10px',
-            }}>
+            <h3 className={`
+              text-xs font-semibold uppercase tracking-[0.08em] mb-2.5
+              ${skill.variant === 'purple' ? 'text-accent' : ''}
+              ${skill.variant === 'cyan' ? 'text-accent-cyan' : ''}
+              ${skill.variant === 'neutral' ? 'text-text-secondary' : ''}
+            `}>
               {skill.category}
             </h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            <div className="flex flex-wrap gap-1.5">
               {skill.items.map(item => (
                 <span key={item} className={`tag tag-${skill.variant === 'neutral' ? 'neutral' : skill.variant}`}>
                   {item}
@@ -162,41 +118,23 @@ const AboutPage = () => {
       </div>
 
       {/* Education */}
-      <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.25rem', color: '#fff' }}>
+      <h2 className="text-xl font-semibold mb-5 text-white">
         Education
       </h2>
-      <div ref={eduRef} className="reveal-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div ref={eduRef} className="reveal-stagger flex flex-col gap-3">
         {education.map(edu => (
           <div
             key={edu.school}
-            style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderLeft: `3px solid ${edu.accent}`,
-              borderRadius: '0 var(--radius-md) var(--radius-md) 0',
-              padding: '1.25rem 1.5rem',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '8px',
-            }}
+            className="bg-white/[0.03] border border-white/[0.07] rounded-r-md p-5 px-6 flex justify-between items-center flex-wrap gap-2"
+            style={{ borderLeft: `3px solid ${edu.accent}` }}
           >
             <div>
-              <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#fff', marginBottom: '4px' }}>
+              <h3 className="text-[15px] font-semibold text-white mb-1">
                 {edu.school}
               </h3>
-              <p style={{ fontSize: '13px', color: edu.accent }}>{edu.degree}</p>
+              <p className="text-[13px]" style={{ color: edu.accent }}>{edu.degree}</p>
             </div>
-            <span style={{
-              fontSize: '12px',
-              color: 'var(--text-tertiary)',
-              background: 'rgba(255,255,255,0.04)',
-              padding: '4px 10px',
-              borderRadius: '20px',
-              border: '1px solid rgba(255,255,255,0.07)',
-              whiteSpace: 'nowrap',
-            }}>
+            <span className="text-xs text-text-tertiary bg-white/[0.04] px-2.5 py-1 rounded-[20px] border border-white/[0.07] whitespace-nowrap">
               {edu.period}
             </span>
           </div>
