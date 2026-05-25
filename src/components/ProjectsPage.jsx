@@ -18,6 +18,7 @@ const projects = [
   { title: 'TicTacToe', type: 'Frontend', desc: 'TicTacToe game with multiple difficulty levels powered by a minimax algorithm.', tags: ['React'], link: 'https://uche-tictactoe.netlify.app/' },
 ];
 
+<<<<<<< HEAD
 const filters = ['All', 'Mobile', 'Frontend', 'Backend', 'Full Stack'];
 
 const typeAccent = (type) => {
@@ -31,6 +32,101 @@ const ProjectsPage = () => {
   const gridRef = useReveal();
 
   const filtered = active === 'All' ? projects : projects.filter(p => p.type === active);
+=======
+  const projects = [
+    {
+      title: 'Bank Aptitude Test',
+      subtitle: 'Full Stack',
+      desc: 'Created pixel-perfect aptitude test platform with real-time scoring and performance tracking',
+      tags: ['Next.js', 'Laravel', 'MySQL'],
+      link: 'https://bank-aptitude-test-frontend.vercel.app/'
+    },
+    {
+      title: 'Crypto Wallet App',
+      subtitle: 'Mobile',
+      desc: 'Built modern Web3 crypto wallet with real-time price tracking and trend charts',
+      tags: ['Flutter', 'Dart', 'API Integration'],
+      link: 'https://appetize.io/embed/b_tjsg3n25kl2anr3schm3bc64fa'
+    },
+     {
+      title: 'Chop Chop Delivery',
+      subtitle: 'Mobile',
+      desc: 'Designed and developed a food delivery app with real-time order tracking, dynamic menus, and secure payment integration',
+      tags: ['Flutter', 'Dart', 'API Integration'],
+      link: 'https://appetize.io/embed/b_syr2cowdxmfshowtcna3drvlky'
+    },
+    {
+      title: 'Audiophile E-commerce',
+      subtitle: 'Frontend',
+      desc: 'Created pixel-perfect e-commerce platform with functional checkout flow',
+      tags: ['React', 'Next.js', 'Convex'],
+      link: 'https://audiophile-ecommerce1.netlify.app/'
+    },
+    {
+      title: 'Country Currency API',
+      subtitle: 'Backend',
+      desc: 'Built RESTful API fetching country data and exchange rates',
+      tags: ['PHP', 'Laravel', 'MySQL'],
+      link: null
+    },
+    {
+      title: 'Framez Social App',
+      subtitle: 'Mobile',
+      desc: 'Developed mobile social platform with Firebase authentication',
+      tags: ['React Native', 'Firebase'],
+      link: 'https://appetize.io/embed/b_o4fc7j2wpfb557k4hezlgsjlwy'
+    },
+    {
+      title: 'Multi-Framework Tickets',
+      subtitle: 'Frontend',
+      desc: 'Built ticket management system in three frameworks',
+      tags: ['React', 'Vue.js', 'Twig'],
+      link: 'https://ticket-app-react.netlify.app/', 
+    },
+    {
+      title: 'Storekeeper Inventory',
+      subtitle: 'Mobile',
+      desc: 'Developed local inventory management with Hive database',
+      tags: ['Flutter', 'Hive', 'CRUD'],
+      link: 'https://appetize.io/embed/b_dyvs63gedhnjpwdh27xh6dniya'
+    },
+    {
+      title: 'Todo App with Theme Switching',
+      subtitle: 'Frontend',
+      desc: 'Built pixel-perfect todo application with light/dark themes and real-time backend integration',
+      tags: ['React Native', 'Convex', 'Theme Management'],
+      link: 'https://appetize.io/embed/b_szixceobpvrxapvfwcykgpfqbi'
+    },
+    {
+      title: 'Tech Trivia Quiz App',
+      subtitle: 'Mobile',
+      desc: 'Created interactive quiz with score tracking, timer functionality, and answer review',
+      tags: ['Flutter', 'Dart', 'Interactive UI'],
+      link: 'https://appetize.io/embed/b_qfsj4e7qy7vkhpmh2ntyluzegi'
+    },
+    {
+      title: 'String Analyzer Service',
+      subtitle: 'Backend',
+      desc: 'Developed API analyzing strings with palindrome validation, SHA-256 hashing, and character frequency',
+      tags: ['PHP', 'Laravel', 'REST API'],
+      link: null
+    },
+    {
+        title: 'Black Friday Store',
+      subtitle: 'Frontend',
+      desc: 'Basic Black Friday Webpage',
+      tags: ['Html', 'CSS/Tailwind', 'JavaScript'],
+      link: 'https://black-friday1.netlify.app/'
+    },
+     {
+        title: 'TicTacToe',
+      subtitle: 'Frontend',
+      desc: 'TicTacToe Game With Multiple level difficulty',
+      tags: ['React'],
+      link: 'https://uche-tictactoe.netlify.app/'
+    },
+  ];
+>>>>>>> a58849d3c04a4e9cca7d5eb05f724fd6ea6dc282
 
   return (
     <div className="max-w-[1100px] mx-auto px-8 pt-16 pb-24">
